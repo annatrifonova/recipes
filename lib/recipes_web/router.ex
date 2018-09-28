@@ -16,7 +16,7 @@ defmodule RecipesWeb.Router do
   scope "/", RecipesWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", RecipeController, :index
     resources("/recipes", RecipeController)
   end
 
