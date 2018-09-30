@@ -20,6 +20,7 @@ defmodule RecipesWeb.RecipeController do
         conn
         |> put_flash(:info, "Recipe created successfully.")
         |> redirect(to: recipe_path(conn, :show, recipe))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -44,6 +45,7 @@ defmodule RecipesWeb.RecipeController do
         conn
         |> put_flash(:info, "Recipe updated successfully.")
         |> redirect(to: recipe_path(conn, :show, recipe))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", recipe: recipe, changeset: changeset)
     end

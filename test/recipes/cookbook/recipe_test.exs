@@ -22,15 +22,17 @@ defmodule Recipes.Cookbook.RecipeTest do
 
   describe "create_recipe/1" do
     test "with valid data creates a recipe" do
-      %{name: name, description: description, instructions: instructions, time: time} = params = params_for(:recipe)
+      %{name: name, description: description, instructions: instructions, time: time} =
+        params = params_for(:recipe)
 
       assert {:ok, %Recipe{} = recipe} = Cookbook.create_recipe(params)
+
       assert %{
-        name: ^name,
-        description: ^description,
-        instructions: ^instructions,
-        time: ^time
-      } = recipe
+               name: ^name,
+               description: ^description,
+               instructions: ^instructions,
+               time: ^time
+             } = recipe
     end
 
     test "with invalid data returns error changeset" do
@@ -42,16 +44,18 @@ defmodule Recipes.Cookbook.RecipeTest do
   describe "update_recipe/2" do
     test "with valid data updates the recipe" do
       recipe = insert(:recipe)
-      %{name: name, description: description, instructions: instructions, time: time} = params = params_for(:recipe)
+
+      %{name: name, description: description, instructions: instructions, time: time} =
+        params = params_for(:recipe)
 
       assert {:ok, recipe} = Cookbook.update_recipe(recipe, params)
 
       assert %{
-        name: ^name,
-        description: ^description,
-        instructions: ^instructions,
-        time: ^time
-      } = recipe
+               name: ^name,
+               description: ^description,
+               instructions: ^instructions,
+               time: ^time
+             } = recipe
     end
 
     test "with invalid data returns error changeset" do
