@@ -1,16 +1,7 @@
 defmodule RecipesWeb.RecipeControllerTest do
   use RecipesWeb.ConnCase
 
-  alias Recipes.Cookbook
-
-  @create_attrs %{description: "some description", instructions: "some instructions", name: "some name", time: 42}
-  @update_attrs %{description: "some updated description", instructions: "some updated instructions", name: "some updated name", time: 43}
-  @invalid_attrs %{description: nil, instructions: nil, name: nil, time: nil}
-
-  def fixture(:recipe) do
-    {:ok, recipe} = Cookbook.create_recipe(@create_attrs)
-    recipe
-  end
+  import Recipes.Factory
 
   describe "index" do
     test "lists all recipes", %{conn: conn} do
@@ -28,7 +19,8 @@ defmodule RecipesWeb.RecipeControllerTest do
 
   describe "create recipe" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post conn, recipe_path(conn, :create), recipe: @create_attrs
+      params = params_for(:recipe)
+      conn = post conn, recipe_path(conn, :create), recipe: params
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == recipe_path(conn, :show, id)
@@ -38,7 +30,8 @@ defmodule RecipesWeb.RecipeControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post conn, recipe_path(conn, :create), recipe: @invalid_attrs
+      params = params_for(:recipe, name: "")
+      conn = post conn, recipe_path(conn, :create), recipe: params
       assert html_response(conn, 200) =~ "New Recipe"
     end
   end
@@ -56,15 +49,24 @@ defmodule RecipesWeb.RecipeControllerTest do
     setup [:create_recipe]
 
     test "redirects when data is valid", %{conn: conn, recipe: recipe} do
-      conn = put conn, recipe_path(conn, :update, recipe), recipe: @update_attrs
+      %{name: name, description: description, instructions: instructions, time: time} = params = params_for(:recipe)
+
+      conn = put conn, recipe_path(conn, :update, recipe), recipe: params
       assert redirected_to(conn) == recipe_path(conn, :show, recipe)
 
-      conn = get conn, recipe_path(conn, :show, recipe)
-      assert html_response(conn, 200) =~ "some updated description"
+      response = conn
+        |> get(recipe_path(conn, :show, recipe))
+        |> html_response(200)
+
+      assert response =~ name
+      assert response =~ description
+      assert response =~ instructions
+      assert response =~ Integer.to_string(time)
     end
 
     test "renders errors when data is invalid", %{conn: conn, recipe: recipe} do
-      conn = put conn, recipe_path(conn, :update, recipe), recipe: @invalid_attrs
+      params = params_for(:recipe, name: "")
+      conn = put conn, recipe_path(conn, :update, recipe), recipe: params
       assert html_response(conn, 200) =~ "Edit Recipe"
     end
   end
@@ -82,7 +84,7 @@ defmodule RecipesWeb.RecipeControllerTest do
   end
 
   defp create_recipe(_) do
-    recipe = fixture(:recipe)
+    recipe = insert(:recipe)
     {:ok, recipe: recipe}
   end
 end
