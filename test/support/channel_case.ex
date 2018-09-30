@@ -25,13 +25,13 @@ defmodule RecipesWeb.ChannelCase do
     end
   end
 
-
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Recipes.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Recipes.Repo, {:shared, self()})
     end
+
     :ok
   end
-
 end

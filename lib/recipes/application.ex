@@ -11,7 +11,7 @@ defmodule Recipes.Application do
       # Start the Ecto repository
       supervisor(Recipes.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(RecipesWeb.Endpoint, []),
+      supervisor(RecipesWeb.Endpoint, [])
       # Start your own worker by calling: Recipes.Worker.start_link(arg1, arg2, arg3)
       # worker(Recipes.Worker, [arg1, arg2, arg3]),
     ]

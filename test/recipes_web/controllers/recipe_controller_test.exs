@@ -5,14 +5,14 @@ defmodule RecipesWeb.RecipeControllerTest do
 
   describe "index" do
     test "lists all recipes", %{conn: conn} do
-      conn = get conn, recipe_path(conn, :index)
+      conn = get(conn, recipe_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Recipes"
     end
   end
 
   describe "new recipe" do
     test "renders form", %{conn: conn} do
-      conn = get conn, recipe_path(conn, :new)
+      conn = get(conn, recipe_path(conn, :new))
       assert html_response(conn, 200) =~ "New Recipe"
     end
   end
@@ -20,18 +20,18 @@ defmodule RecipesWeb.RecipeControllerTest do
   describe "create recipe" do
     test "redirects to show when data is valid", %{conn: conn} do
       params = params_for(:recipe)
-      conn = post conn, recipe_path(conn, :create), recipe: params
+      conn = post(conn, recipe_path(conn, :create), recipe: params)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == recipe_path(conn, :show, id)
 
-      conn = get conn, recipe_path(conn, :show, id)
+      conn = get(conn, recipe_path(conn, :show, id))
       assert html_response(conn, 200) =~ "Show Recipe"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
       params = params_for(:recipe, name: "")
-      conn = post conn, recipe_path(conn, :create), recipe: params
+      conn = post(conn, recipe_path(conn, :create), recipe: params)
       assert html_response(conn, 200) =~ "New Recipe"
     end
   end
@@ -40,7 +40,7 @@ defmodule RecipesWeb.RecipeControllerTest do
     setup [:create_recipe]
 
     test "renders form for editing chosen recipe", %{conn: conn, recipe: recipe} do
-      conn = get conn, recipe_path(conn, :edit, recipe)
+      conn = get(conn, recipe_path(conn, :edit, recipe))
       assert html_response(conn, 200) =~ "Edit Recipe"
     end
   end
@@ -49,12 +49,14 @@ defmodule RecipesWeb.RecipeControllerTest do
     setup [:create_recipe]
 
     test "redirects when data is valid", %{conn: conn, recipe: recipe} do
-      %{name: name, description: description, instructions: instructions, time: time} = params = params_for(:recipe)
+      %{name: name, description: description, instructions: instructions, time: time} =
+        params = params_for(:recipe)
 
-      conn = put conn, recipe_path(conn, :update, recipe), recipe: params
+      conn = put(conn, recipe_path(conn, :update, recipe), recipe: params)
       assert redirected_to(conn) == recipe_path(conn, :show, recipe)
 
-      response = conn
+      response =
+        conn
         |> get(recipe_path(conn, :show, recipe))
         |> html_response(200)
 
@@ -66,7 +68,7 @@ defmodule RecipesWeb.RecipeControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn, recipe: recipe} do
       params = params_for(:recipe, name: "")
-      conn = put conn, recipe_path(conn, :update, recipe), recipe: params
+      conn = put(conn, recipe_path(conn, :update, recipe), recipe: params)
       assert html_response(conn, 200) =~ "Edit Recipe"
     end
   end
@@ -75,11 +77,12 @@ defmodule RecipesWeb.RecipeControllerTest do
     setup [:create_recipe]
 
     test "deletes chosen recipe", %{conn: conn, recipe: recipe} do
-      conn = delete conn, recipe_path(conn, :delete, recipe)
+      conn = delete(conn, recipe_path(conn, :delete, recipe))
       assert redirected_to(conn) == recipe_path(conn, :index)
-      assert_error_sent 404, fn ->
-        get conn, recipe_path(conn, :show, recipe)
-      end
+
+      assert_error_sent(404, fn ->
+        get(conn, recipe_path(conn, :show, recipe))
+      end)
     end
   end
 

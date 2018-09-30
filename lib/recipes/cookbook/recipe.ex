@@ -2,12 +2,11 @@ defmodule Recipes.Cookbook.Recipe do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "recipes" do
-    field :description, :string
-    field :instructions, :string
-    field :name, :string
-    field :time, :integer
+    field(:description, :string)
+    field(:instructions, :string)
+    field(:name, :string)
+    field(:time, :integer)
 
     timestamps()
   end
