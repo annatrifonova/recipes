@@ -1,28 +1,14 @@
-<h2>Show Recipe</h2>
+<div class="content">
+  <h1><%= @recipe.name %></h1>
 
-<ul>
+  <p><%= @recipe.description %></p>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @recipe.name %>
-  </li>
+  <h2>Cooking time</h2>
+  <p><%= @recipe.time %> min</p>
 
-  <li>
-    <strong>Description:</strong>
-    <%= @recipe.description %>
-  </li>
+  <h2>How to cook</h2>
+  <p><%= @recipe.instructions %></p>
 
-  <li>
-    <strong>Instructions:</strong>
-    <%= @recipe.instructions %>
-  </li>
-
-  <li>
-    <strong>Time:</strong>
-    <%= @recipe.time %>
-  </li>
-
-</ul>
-
-<span><%= link "Edit", to: recipe_path(@conn, :edit, @recipe) %></span>
-<span><%= link "Back", to: recipe_path(@conn, :index) %></span>
+  <span><%= link "Edit", to: recipe_path(@conn, :edit, @recipe), class: "button is-link" %></span>
+  <span><%= link "Back", to: recipe_path(@conn, :index), class: "button" %></span>
+</div>
