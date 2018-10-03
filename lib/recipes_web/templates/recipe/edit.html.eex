@@ -1,4 +1,4 @@
-<h2>Edit Recipe</h2>
+<h1 class="title">Edit Recipe</h1>
 
 <%= render "form.html", Map.put(assigns, :action, recipe_path(@conn, :update, @recipe)) %>
 

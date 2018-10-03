@@ -1,6 +1,6 @@
-<h2>Listing Recipes</h2>
+<h1 class="title">Listing Recipes</h1>
 
-<table class="table">
+<table class="table is-fullwidth">
   <thead>
     <tr>
       <th>Name</th>
@@ -19,14 +19,14 @@
       <td><%= recipe.instructions %></td>
       <td><%= recipe.time %></td>
 
-      <td class="text-right">
-        <span><%= link "Show", to: recipe_path(@conn, :show, recipe), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: recipe_path(@conn, :edit, recipe), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: recipe_path(@conn, :delete, recipe), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      <td>
+        <span><%= link "Show", to: recipe_path(@conn, :show, recipe), class: "button is-small" %></span>
+        <span><%= link "Edit", to: recipe_path(@conn, :edit, recipe), class: "button is-small" %></span>
+        <span><%= link "Delete", to: recipe_path(@conn, :delete, recipe), method: :delete, data: [confirm: "Are you sure?"], class: "button is-small is-danger" %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Recipe", to: recipe_path(@conn, :new) %></span>
+<span><%= link "New Recipe", to: recipe_path(@conn, :new), class: "button is-primary" %></span>
