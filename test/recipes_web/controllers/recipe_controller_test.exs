@@ -19,14 +19,14 @@ defmodule RecipesWeb.RecipeControllerTest do
 
   describe "create recipe" do
     test "redirects to show when data is valid", %{conn: conn} do
-      params = params_for(:recipe)
+      %{name: name} = params = params_for(:recipe)
       conn = post(conn, recipe_path(conn, :create), recipe: params)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == recipe_path(conn, :show, id)
 
       conn = get(conn, recipe_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Recipe"
+      assert html_response(conn, 200) =~ name
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
