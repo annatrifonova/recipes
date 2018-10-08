@@ -2,6 +2,7 @@ defmodule Recipes.Factory do
   use ExMachina.Ecto, repo: Recipes.Repo
 
   alias Recipes.Cookbook.Recipe
+  alias Recipes.Ingridients.Item
 
   def recipe_factory do
     %Recipe{
@@ -9,6 +10,14 @@ defmodule Recipes.Factory do
       instructions: sequence(:instructions, &"Instructions #{&1}"),
       name: sequence(:name, &"Name #{&1}"),
       time: Enum.random(5..120)
+    }
+  end
+
+  def ingridient_factory do
+    %Item{
+      recipe: build(:recipe),
+      name: sequence(:name, &"Ingridient #{&1}"),
+      quantity: sequence(:quantity, &"Quantity #{&1}")
     }
   end
 end
