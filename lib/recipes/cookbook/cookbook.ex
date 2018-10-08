@@ -4,8 +4,8 @@ defmodule Recipes.Cookbook do
   """
 
   import Ecto.Query, warn: false
-  alias Recipes.Repo
 
+  alias Recipes.Repo
   alias Recipes.Cookbook.Recipe
 
   @doc """
