@@ -14,4 +14,14 @@ defmodule Recipes.Ingridients do
     |> Item.changeset(attr)
     |> Repo.insert()
   end
+
+  def update_ingridient(ingridient, attr) do
+    ingridient
+    |> Item.changeset(attr)
+    |> Repo.update()
+  end
+
+  def delete_ingridient(ingridient) do
+    Repo.delete(ingridient)
+  end
 end
