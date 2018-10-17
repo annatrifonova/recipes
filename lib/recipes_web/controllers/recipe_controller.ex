@@ -30,7 +30,7 @@ defmodule RecipesWeb.RecipeController do
 
   def show(conn, %{"id" => id}) do
     recipe = Cookbook.get_recipe!(id)
-    ingridients = Ingridients.list_ingridients(%Recipe{id: id})
+    ingridients = Ingridients.list_ingridients(recipe)
     render(conn, "show.html", recipe: recipe, ingridients: ingridients)
   end
 
