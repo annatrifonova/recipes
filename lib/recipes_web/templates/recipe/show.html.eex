@@ -4,7 +4,10 @@
   <p><%= @recipe.description %></p>
 
   <h2>Ingridients</h2>
-  <p><%= @ingridients %></p>
+  <%= for ingridient <- @ingridients do %>
+    <p><%= ingridient.name %></p>
+    <p><%= ingridient.quantity %></p>
+  <% end %>
 
   <h2>Cooking time</h2>
   <p><%= @recipe.time %> min</p>
