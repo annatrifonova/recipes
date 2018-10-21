@@ -1,8 +1,7 @@
 defmodule Recipes.Factory do
   use ExMachina.Ecto, repo: Recipes.Repo
 
-  alias Recipes.Cookbook.Recipe
-  alias Recipes.Ingridients.Item
+  alias Recipes.Cookbook.{Recipe, Ingridient}
 
   def recipe_factory do
     %Recipe{
@@ -14,7 +13,7 @@ defmodule Recipes.Factory do
   end
 
   def ingridient_factory do
-    %Item{
+    %Ingridient{
       recipe: build(:recipe),
       name: sequence(:name, &"Ingridient #{&1}"),
       quantity: sequence(:quantity, &"Quantity #{&1}")

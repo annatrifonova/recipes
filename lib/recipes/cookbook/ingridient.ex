@@ -1,9 +1,9 @@
-defmodule Recipes.Ingridients.Item do
+defmodule Recipes.Cookbook.Ingridient do
   use Ecto.Schema
   import Ecto.Changeset
   alias Recipes.Cookbook.Recipe
 
-  schema "ingridients_items" do
+  schema "ingridients" do
     field(:name, :string)
     field(:quantity, :string)
 

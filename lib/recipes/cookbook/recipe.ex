@@ -1,7 +1,7 @@
 defmodule Recipes.Cookbook.Recipe do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Recipes.Ingridients
+  alias Recipes.Cookbook.Ingridient
 
   schema "recipes" do
     field(:description, :string)
@@ -9,7 +9,7 @@ defmodule Recipes.Cookbook.Recipe do
     field(:name, :string)
     field(:time, :integer)
 
-    has_many(:ingridients, Ingridients.Item, on_delete: :delete_all)
+    has_many(:ingridients, Ingridient, on_delete: :delete_all)
 
     timestamps()
   end
