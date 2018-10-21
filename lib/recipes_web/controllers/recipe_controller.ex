@@ -3,8 +3,6 @@ defmodule RecipesWeb.RecipeController do
 
   alias Recipes.Cookbook
   alias Recipes.Cookbook.Recipe
-  alias Recipes.Ingridients
-  alias Recipes.Ingridients.Item
 
   def index(conn, _params) do
     recipes = Cookbook.list_recipes()
@@ -30,7 +28,7 @@ defmodule RecipesWeb.RecipeController do
 
   def show(conn, %{"id" => id}) do
     recipe = Cookbook.get_recipe!(id)
-    ingridients = Ingridients.list_ingridients(recipe)
+    ingridients = Cookbook.list_ingridients(recipe)
     render(conn, "show.html", recipe: recipe, ingridients: ingridients)
   end
 
