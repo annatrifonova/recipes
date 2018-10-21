@@ -121,4 +121,8 @@ defmodule Recipes.Cookbook do
   def delete_ingridient(ingridient) do
     Repo.delete(ingridient)
   end
+
+  def change_ingridient(%Ingridient{} = ingridient) do
+    Ingridient.changeset(ingridient, %{})
+  end
 end

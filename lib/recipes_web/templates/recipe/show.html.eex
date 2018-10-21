@@ -4,10 +4,12 @@
   <p><%= @recipe.description %></p>
 
   <h2>Ingridients</h2>
-  <%= for ingridient <- @ingridients do %>
-    <p><%= ingridient.name %></p>
-    <p><%= ingridient.quantity %></p>
-  <% end %>
+  <span><%= link "Add ingridients", to: recipe_ingridient_path(@conn, :new, @recipe), class: "button is-success" %></span>
+  <ul>
+    <%= for ingridient <- @ingridients do %>
+      <li><%= ingridient.name %> - <%= ingridient.quantity %></li>
+    <% end %>
+  </ul>
 
   <h2>Cooking time</h2>
   <p><%= @recipe.time %> min</p>
