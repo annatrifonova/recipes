@@ -24,4 +24,11 @@ defmodule RecipesWeb.IngridientController do
         render(conn, "new.html", recipe: recipe, changeset: changeset)
     end
   end
+
+  def edit(conn, %{"recipe_id" => recipe_id, "id" => id}) do
+    recipe = Cookbook.get_recipe!(recipe_id)
+    ingridient = Cookbook.get_ingridient!(id)
+    changeset = Cookbook.change_ingridient(ingridient)
+    render(conn, "edit.html", recipe: recipe, ingridient: ingridient, changeset: changeset)
+  end
 end
