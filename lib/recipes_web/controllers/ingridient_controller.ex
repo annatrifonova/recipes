@@ -20,8 +20,8 @@ defmodule RecipesWeb.IngridientController do
         |> put_flash(:info, "Ingridient created successfully.")
         |> redirect(to: recipe_path(conn, :show, recipe))
 
-        {:error, %Ecto.Changeset{} = changeset} ->
-          render(conn, "new.html", recipe: recipe, changeset: changeset)
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "new.html", recipe: recipe, changeset: changeset)
     end
   end
 end

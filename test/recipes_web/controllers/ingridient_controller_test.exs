@@ -8,7 +8,7 @@ defmodule RecipesWeb.IngridientControllerTest do
   describe "new ingridient" do
     test "renders form", %{conn: conn, recipe: recipe} do
       conn = get(conn, recipe_ingridient_path(conn, :new, recipe))
-      assert html_response(conn, 200) =~ "New Ingridient" 
+      assert html_response(conn, 200) =~ "New Ingridient"
     end
   end
 
