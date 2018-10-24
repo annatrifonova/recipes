@@ -7,7 +7,10 @@
   <span><%= link "Add ingridients", to: recipe_ingridient_path(@conn, :new, @recipe), class: "button is-success" %></span>
   <ul>
     <%= for ingridient <- @ingridients do %>
-      <li><%= ingridient.name %> - <%= ingridient.quantity %></li>
+      <li>
+        <%= ingridient.name %> - <%= ingridient.quantity %>
+        <span><%= link "Edit", to: recipe_ingridient_path(@conn, :edit, @recipe, ingridient), class: "button is-link" %></span>
+      </li>
     <% end %>
   </ul>
 

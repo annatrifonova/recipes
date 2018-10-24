@@ -106,6 +106,10 @@ defmodule Recipes.Cookbook do
     Repo.all(from(Ingridient, where: [recipe_id: ^recipe_id]))
   end
 
+  def get_ingridient!(id) do
+    Repo.get!(Ingridient, id)
+  end
+
   def create_ingridient(attr) do
     %Ingridient{}
     |> Ingridient.changeset(attr)

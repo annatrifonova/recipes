@@ -24,6 +24,15 @@ defmodule Recipes.Cookbook.IngridientTest do
     end
   end
 
+  describe "get_ingridient!/1" do
+    test "returns the ingridient with given id" do
+      %{id: id, recipe_id: recipe_id, name: name, quantity: quantity} = insert(:ingridient)
+
+      assert %Ingridient{id: ^id, recipe_id: ^recipe_id, name: ^name, quantity: ^quantity} =
+               Cookbook.get_ingridient!(id)
+    end
+  end
+
   describe "create_ingridient/1" do
     test "creates a new ingridient with valid attributes" do
       %{id: recipe_id} = insert(:recipe)
