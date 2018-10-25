@@ -4,12 +4,13 @@
   <p><%= @recipe.description %></p>
 
   <h2>Ingridients</h2>
-  <span><%= link "Add ingridients", to: recipe_ingridient_path(@conn, :new, @recipe), class: "button is-success" %></span>
+  <span><%= link "Add ingridient", to: recipe_ingridient_path(@conn, :new, @recipe), class: "button is-success" %></span>
   <ul>
     <%= for ingridient <- @ingridients do %>
       <li>
         <%= ingridient.name %> - <%= ingridient.quantity %>
-        <span><%= link "Edit", to: recipe_ingridient_path(@conn, :edit, @recipe, ingridient), class: "button is-link" %></span>
+        <span><%= link "Edit", to: recipe_ingridient_path(@conn, :edit, @recipe, ingridient), class: "button is-small is-link" %></span>
+        <span><%= link "Delete", to: recipe_ingridient_path(@conn, :delete, @recipe, ingridient), method: :delete, data: [confirm: "Are you sure?"], class: "button is-small is-danger" %></span>
       </li>
     <% end %>
   </ul>

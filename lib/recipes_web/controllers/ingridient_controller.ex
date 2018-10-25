@@ -31,4 +31,30 @@ defmodule RecipesWeb.IngridientController do
     changeset = Cookbook.change_ingridient(ingridient)
     render(conn, "edit.html", recipe: recipe, ingridient: ingridient, changeset: changeset)
   end
+
+  def update(conn, %{"recipe_id" => recipe_id, "id" => id, "ingridient" => ingridient_params}) do
+    recipe = Cookbook.get_recipe!(recipe_id)
+    ingridient = Cookbook.get_ingridient!(id)
+
+    case Cookbook.update_ingridient(ingridient, ingridient_params) do
+      {:ok, ingridient} ->
+        conn
+        |> put_flash(:info, "Ingridient updated successfully.")
+        |> redirect(to: recipe_path(conn, :show, recipe))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", recipe: recipe, ingridient: ingridient, changeset: changeset)
+    end
+  end
+
+  def delete(conn, %{"recipe_id" => recipe_id, "id" => id}) do
+    recipe = Cookbook.get_recipe!(recipe_id)
+    ingridient = Cookbook.get_ingridient!(id)
+
+    {:ok, _ingridient} = Cookbook.delete_ingridient(ingridient)
+
+    conn
+    |> put_flash(:info, "Ingridient deleted successfully.")
+    |> redirect(to: recipe_path(conn, :show, recipe))
+  end
 end
