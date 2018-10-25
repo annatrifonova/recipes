@@ -20,13 +20,13 @@
       <td><%= recipe.time %></td>
 
       <td>
-        <span><%= link "Show", to: recipe_path(@conn, :show, recipe), class: "button is-small" %></span>
-        <span><%= link "Edit", to: recipe_path(@conn, :edit, recipe), class: "button is-small" %></span>
-        <span><%= link "Delete", to: recipe_path(@conn, :delete, recipe), method: :delete, data: [confirm: "Are you sure?"], class: "button is-small is-danger" %></span>
+        <%= link "Show", to: recipe_path(@conn, :show, recipe), class: "button is-small" %>
+        <%= link "Edit", to: recipe_path(@conn, :edit, recipe), class: "button is-small" %>
+        <%= link "Delete", to: recipe_path(@conn, :delete, recipe), method: :delete, data: [confirm: "Are you sure?"], class: "button is-small is-danger" %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Recipe", to: recipe_path(@conn, :new), class: "button is-primary" %></span>
+<%= link "New Recipe", to: recipe_path(@conn, :new), class: "button is-primary" %>

@@ -4,13 +4,13 @@
   <p><%= @recipe.description %></p>
 
   <h2>Ingridients</h2>
-  <span><%= link "Add ingridient", to: recipe_ingridient_path(@conn, :new, @recipe), class: "button is-success" %></span>
+  <%= link "Add ingridient", to: recipe_ingridient_path(@conn, :new, @recipe), class: "button is-success" %>
   <ul>
     <%= for ingridient <- @ingridients do %>
       <li>
         <%= ingridient.name %> - <%= ingridient.quantity %>
-        <span><%= link "Edit", to: recipe_ingridient_path(@conn, :edit, @recipe, ingridient), class: "button is-small is-link" %></span>
-        <span><%= link "Delete", to: recipe_ingridient_path(@conn, :delete, @recipe, ingridient), method: :delete, data: [confirm: "Are you sure?"], class: "button is-small is-danger" %></span>
+        <%= link "Edit", to: recipe_ingridient_path(@conn, :edit, @recipe, ingridient), class: "button is-small is-link" %>
+        <%= link "Delete", to: recipe_ingridient_path(@conn, :delete, @recipe, ingridient), method: :delete, data: [confirm: "Are you sure?"], class: "button is-small is-danger" %>
       </li>
     <% end %>
   </ul>
@@ -21,6 +21,6 @@
   <h2>How to cook</h2>
   <p><%= @recipe.instructions %></p>
 
-  <span><%= link "Edit", to: recipe_path(@conn, :edit, @recipe), class: "button is-link" %></span>
-  <span><%= link "Back", to: recipe_path(@conn, :index), class: "button" %></span>
+  <%= link "Edit", to: recipe_path(@conn, :edit, @recipe), class: "button is-link" %>
+  <%= link "Back", to: recipe_path(@conn, :index), class: "button" %>
 </div>
