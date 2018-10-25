@@ -2,4 +2,4 @@
 
 <%= render "form.html", Map.put(assigns, :action, recipe_ingridient_path(@conn, :create, @recipe)) %>
 
-<span><%= link "Back", to: recipe_path(@conn, :show, @recipe) %></span>
+<%= link "Back", to: recipe_path(@conn, :show, @recipe) %>
