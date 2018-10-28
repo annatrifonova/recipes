@@ -1,13 +1,13 @@
 defmodule Recipes.Cookbook.Ingridient do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Recipes.Cookbook.Recipe
+  alias Recipes.Cookbook.{Recipe, Product}
 
   schema "ingridients" do
-    field(:name, :string)
     field(:quantity, :string)
 
     belongs_to(:recipe, Recipe)
+    belongs_to(:product, Product)
 
     timestamps()
   end
