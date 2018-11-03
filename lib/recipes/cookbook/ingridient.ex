@@ -5,6 +5,7 @@ defmodule Recipes.Cookbook.Ingridient do
 
   schema "ingridients" do
     field(:quantity, :string)
+    field(:name, :string, virtual: true)
 
     belongs_to(:recipe, Recipe)
     belongs_to(:product, Product)
@@ -13,10 +14,15 @@ defmodule Recipes.Cookbook.Ingridient do
   end
 
   @doc false
-  def changeset(item, attrs) do
-    item
-    |> cast(attrs, [:name, :quantity, :recipe_id])
-    |> validate_required([:name, :quantity, :recipe_id])
+  def changeset(ingridient, attrs) do
+    ingridient
+    |> cast(attrs, [:quantity, :name, :recipe_id, :product_id])
+    |> validate_required([:quantity, :recipe_id, :product_id])
     |> foreign_key_constraint(:recipe_id)
+    |> foreign_key_constraint(:product_id)
+  end
+
+  def put_product(ingridient, %Product{id: product_id}) do
+    cast(ingridient, %{product_id: product_id}, [:product_id])
   end
 end

@@ -2,7 +2,7 @@ defmodule RecipesWeb.IngridientController do
   use RecipesWeb, :controller
 
   alias Recipes.Cookbook
-  alias Recipes.Cookbook.{Recipe, Ingridient}
+  alias Recipes.Cookbook.Ingridient
 
   def new(conn, %{"recipe_id" => recipe_id}) do
     recipe = Cookbook.get_recipe!(recipe_id)
@@ -15,7 +15,7 @@ defmodule RecipesWeb.IngridientController do
     params = Map.put(ingridient_params, "recipe_id", recipe_id)
 
     case Cookbook.create_ingridient(params) do
-      {:ok, ingridient} ->
+      {:ok, _ingridient} ->
         conn
         |> put_flash(:info, "Ingridient created successfully.")
         |> redirect(to: recipe_path(conn, :show, recipe))
@@ -37,7 +37,7 @@ defmodule RecipesWeb.IngridientController do
     ingridient = Cookbook.get_ingridient!(id)
 
     case Cookbook.update_ingridient(ingridient, ingridient_params) do
-      {:ok, ingridient} ->
+      {:ok, _ingridient} ->
         conn
         |> put_flash(:info, "Ingridient updated successfully.")
         |> redirect(to: recipe_path(conn, :show, recipe))

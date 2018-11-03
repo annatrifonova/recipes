@@ -8,7 +8,7 @@
   <ul>
     <%= for ingridient <- @ingridients do %>
       <li>
-        <%= ingridient.name %> - <%= ingridient.quantity %>
+        <%= ingridient.product.name %> - <%= ingridient.quantity %>
         <%= link "Edit", to: recipe_ingridient_path(@conn, :edit, @recipe, ingridient), class: "button is-small is-link" %>
         <%= link "Delete", to: recipe_ingridient_path(@conn, :delete, @recipe, ingridient), method: :delete, data: [confirm: "Are you sure?"], class: "button is-small is-danger" %>
       </li>

@@ -14,7 +14,14 @@ defmodule RecipesWeb.IngridientControllerTest do
 
   describe "create ingridient" do
     test "redirects to show recipe when data is valid", %{conn: conn, recipe: recipe} do
-      %{name: name} = params = params_for(:ingridient)
+      %{name: name} = insert(:product)
+      %{quantity: quantity} = params_for(:ingridient)
+
+      params = %{
+        name: name,
+        quantity: quantity
+      }
+
       conn = post(conn, recipe_ingridient_path(conn, :create, recipe), ingridient: params)
 
       assert redirected_to(conn) == recipe_path(conn, :show, recipe)
@@ -24,7 +31,11 @@ defmodule RecipesWeb.IngridientControllerTest do
     end
 
     test "renders form when data is invalid", %{conn: conn, recipe: recipe} do
-      params = params_for(:ingridient, name: "")
+      params = %{
+        name: "",
+        quantity: ""
+      }
+
       conn = post(conn, recipe_ingridient_path(conn, :create, recipe), ingridient: params)
       assert html_response(conn, 200) =~ "New Ingridient"
     end
@@ -47,7 +58,13 @@ defmodule RecipesWeb.IngridientControllerTest do
     setup [:create_ingridient]
 
     test "redirects when data is valid", %{conn: conn, recipe: recipe, ingridient: ingridient} do
-      %{name: name, quantity: quantity} = params = params_for(:ingridient)
+      %{name: name} = insert(:product)
+      %{quantity: quantity} = params_for(:ingridient)
+
+      params = %{
+        name: name,
+        quantity: quantity
+      }
 
       conn =
         put(conn, recipe_ingridient_path(conn, :update, recipe, ingridient), ingridient: params)
@@ -68,7 +85,10 @@ defmodule RecipesWeb.IngridientControllerTest do
       recipe: recipe,
       ingridient: ingridient
     } do
-      params = params_for(:ingridient, name: "")
+      params = %{
+        name: "",
+        quantity: ""
+      }
 
       conn =
         put(conn, recipe_ingridient_path(conn, :update, recipe, ingridient), ingridient: params)
