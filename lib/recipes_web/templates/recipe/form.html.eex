@@ -23,10 +23,8 @@
 
   <div class="field">
     <%= label f, :instructions, class: "label" %>
-    <div class="control">
-      <%= text_input f, :instructions, class: "input" %>
-      <%= error_tag f, :instructions %>
-    </div>
+    <%= textarea f, :instructions, class: "textarea" %>
+    <%= error_tag f, :instructions %>
   </div>
 
   <div class="field">
