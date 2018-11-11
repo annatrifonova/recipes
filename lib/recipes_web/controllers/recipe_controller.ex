@@ -4,8 +4,13 @@ defmodule RecipesWeb.RecipeController do
   alias Recipes.Cookbook
   alias Recipes.Cookbook.Recipe
 
-  def index(conn, _params) do
-    recipes = Cookbook.list_recipes()
+  def index(conn, params) do
+    recipes =
+      params
+      |> get_search_params()
+      |> filter_search_params()
+      |> Cookbook.list_recipes()
+
     render(conn, "index.html", recipes: recipes)
   end
 
@@ -60,4 +65,10 @@ defmodule RecipesWeb.RecipeController do
     |> put_flash(:info, "Recipe deleted successfully.")
     |> redirect(to: recipe_path(conn, :index))
   end
+
+  defp get_search_params(%{"search" => %{} = search}), do: search
+  defp get_search_params(_), do: %{}
+
+  defp filter_search_params(%{"name" => name}), do: %{name: name}
+  defp filter_search_params(_), do: %{}
 end

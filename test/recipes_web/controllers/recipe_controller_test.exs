@@ -8,6 +8,37 @@ defmodule RecipesWeb.RecipeControllerTest do
       conn = get(conn, recipe_path(conn, :index))
       assert html_response(conn, 200) =~ "Listing Recipes"
     end
+
+    test "lists all recipes with given name", %{conn: conn} do
+      %{name: name} = insert(:recipe)
+      %{name: other_name} = insert(:recipe)
+      conn = get(conn, recipe_path(conn, :index, search: %{name: name}))
+
+      assert response = html_response(conn, 200)
+      assert response =~ "Listing Recipes"
+      assert response =~ name
+      refute response =~ other_name
+    end
+
+    test "lists recipes with partially matched name", %{conn: conn} do
+      insert(:recipe, name: "foo bar baz")
+      %{name: other_name} = insert(:recipe)
+      conn = get(conn, recipe_path(conn, :index, search: %{name: "bar"}))
+
+      assert response = html_response(conn, 200)
+      assert response =~ "Listing Recipes"
+      assert response =~ "foo bar baz"
+      refute response =~ other_name
+    end
+
+    test "empty list if no recipes matching name", %{conn: conn} do
+      insert(:recipe, name: "other recipe")
+      conn = get(conn, recipe_path(conn, :index, search: %{name: "bar"}))
+
+      assert response = html_response(conn, 200)
+      assert response =~ "Listing Recipes"
+      refute response =~ "other recipe"
+    end
   end
 
   describe "new recipe" do
