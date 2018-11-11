@@ -12,6 +12,29 @@
   </head>
 
   <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <h1 class="subtitle">WTF Recipes</h1>
+        </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+          <%= form_for @conn, recipe_path(@conn, :index), [as: :search, method: :get], fn f -> %>
+            <div class="field is-grouped">
+              <div class="control">
+                <%= text_input f, :name, class: "input", placeholder: "Search for..." %>
+              </div>
+              <div class="control">
+                <%= submit "Search", class: "button is-primary" %>
+              </div>
+            </div>
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
     <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
     <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 

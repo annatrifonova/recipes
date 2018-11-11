@@ -17,7 +17,16 @@ defmodule Recipes.Cookbook do
       [%Recipe{}, ...]
 
   """
-  def list_recipes do
+  def list_recipes(%{name: name}) do
+    Repo.all(
+      from(
+        Recipe,
+        where: fragment("name ILIKE ?", ^"%#{name}%")
+      )
+    )
+  end
+
+  def list_recipes(_) do
     Repo.all(Recipe)
   end
 

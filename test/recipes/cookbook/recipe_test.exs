@@ -6,10 +6,25 @@ defmodule Recipes.Cookbook.RecipeTest do
   alias Recipes.Cookbook
   alias Recipes.Cookbook.Recipe
 
-  describe "list_recipes/0" do
+  describe "list_recipes/1" do
     test "returns all recipes" do
       recipe = insert(:recipe)
-      assert Cookbook.list_recipes() == [recipe]
+      assert Cookbook.list_recipes(%{}) == [recipe]
+    end
+
+    test "returns recipes with the given name" do
+      %{name: name} = recipe = insert(:recipe)
+      assert Cookbook.list_recipes(%{name: name}) == [recipe]
+    end
+
+    test "returns recipes with partially matched name" do
+      recipe = insert(:recipe, name: "foo bar baz")
+      assert Cookbook.list_recipes(%{name: "bar"}) == [recipe]
+    end
+
+    test "returns empty list if nothing found" do
+      insert(:recipe, name: "recipe")
+      assert Cookbook.list_recipes(%{name: "bar"}) == []
     end
   end
 
