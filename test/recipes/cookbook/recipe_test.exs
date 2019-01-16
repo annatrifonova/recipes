@@ -26,6 +26,18 @@ defmodule Recipes.Cookbook.RecipeTest do
       insert(:recipe, name: "recipe")
       assert Cookbook.list_recipes(%{name: "bar"}) == []
     end
+
+    test "returns recipes with given product" do
+      %{product: product, recipe: recipe} = insert(:ingridient)
+      %{name: product_name} = product
+      assert Cookbook.list_recipes(%{product: product_name}) == [recipe]
+    end
+
+    test "returns empty list if there's no recipe with given product" do
+      insert(:recipe)
+      %{name: product_name} = insert(:product)
+      assert Cookbook.list_recipes(%{product: product_name}) == []
+    end
   end
 
   describe "get_recipe!/1" do

@@ -69,6 +69,7 @@ defmodule RecipesWeb.RecipeController do
   defp get_search_params(%{"search" => %{} = search}), do: search
   defp get_search_params(_), do: %{}
 
-  defp filter_search_params(%{"name" => name}), do: %{name: name}
+  defp filter_search_params(%{"name" => name, "product" => ""}), do: %{name: name}
+  defp filter_search_params(%{"name" => "", "product" => product}), do: %{product: product}
   defp filter_search_params(_), do: %{}
 end

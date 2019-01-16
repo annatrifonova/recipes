@@ -12,7 +12,7 @@ defmodule RecipesWeb.RecipeControllerTest do
     test "lists all recipes with given name", %{conn: conn} do
       %{name: name} = insert(:recipe)
       %{name: other_name} = insert(:recipe)
-      conn = get(conn, recipe_path(conn, :index, search: %{name: name}))
+      conn = get(conn, recipe_path(conn, :index, search: %{name: name, product: ""}))
 
       assert response = html_response(conn, 200)
       assert response =~ "Listing Recipes"
@@ -23,7 +23,7 @@ defmodule RecipesWeb.RecipeControllerTest do
     test "lists recipes with partially matched name", %{conn: conn} do
       insert(:recipe, name: "foo bar baz")
       %{name: other_name} = insert(:recipe)
-      conn = get(conn, recipe_path(conn, :index, search: %{name: "bar"}))
+      conn = get(conn, recipe_path(conn, :index, search: %{name: "bar", product: ""}))
 
       assert response = html_response(conn, 200)
       assert response =~ "Listing Recipes"
@@ -31,13 +31,36 @@ defmodule RecipesWeb.RecipeControllerTest do
       refute response =~ other_name
     end
 
-    test "empty list if no recipes matching name", %{conn: conn} do
+    test "empty list if there are no recipes with matching name", %{conn: conn} do
       insert(:recipe, name: "other recipe")
-      conn = get(conn, recipe_path(conn, :index, search: %{name: "bar"}))
+      conn = get(conn, recipe_path(conn, :index, search: %{name: "bar", product: ""}))
 
       assert response = html_response(conn, 200)
       assert response =~ "Listing Recipes"
       refute response =~ "other recipe"
+    end
+
+    test "list recipes with given product", %{conn: conn} do
+      %{product: product, recipe: recipe} = insert(:ingridient)
+      %{name: product_name} = product
+      %{name: recipe_name} = recipe
+      %{name: other_name} = insert(:recipe)
+      conn = get(conn, :index, search: %{name: "", product: product_name})
+
+      assert response = html_response(conn, 200)
+      assert response =~ "Listing Recipes"
+      assert response =~ recipe_name
+      refute response =~ other_name
+    end
+
+    test "empty list if there are no recipes with matching product", %{conn: conn} do
+      %{name: name} = insert(:recipe)
+      %{name: product_name} = insert(:product)
+      conn = get(conn, :index, search: %{name: "", product: product_name})
+
+      assert response = html_response(conn, 200)
+      assert response =~ "Listing Recipes"
+      refute response =~ name
     end
   end
 

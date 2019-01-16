@@ -24,7 +24,10 @@
           <%= form_for @conn, recipe_path(@conn, :index), [as: :search, method: :get], fn f -> %>
             <div class="field is-grouped">
               <div class="control">
-                <%= text_input f, :name, class: "input", placeholder: "Search for..." %>
+                <%= text_input f, :name, class: "input", placeholder: "Search by name" %>
+              </div>
+              <div class="control">
+                <%= text_input f, :product, class: "input", placeholder: "Search by ingridient" %>
               </div>
               <div class="control">
                 <%= submit "Search", class: "button is-primary" %>

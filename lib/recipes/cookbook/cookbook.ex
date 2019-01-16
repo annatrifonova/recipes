@@ -26,6 +26,17 @@ defmodule Recipes.Cookbook do
     )
   end
 
+  def list_recipes(%{product: product}) do
+    Repo.all(
+      from(
+        recipe in Recipe,
+        join: ingridient in assoc(recipe, :ingridients),
+        join: product in assoc(ingridient, :product),
+        where: product.name == ^product
+      )
+    )
+  end
+
   def list_recipes(_) do
     Repo.all(Recipe)
   end
